@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return(
@@ -60,12 +61,12 @@ const Header = () => {
 											<li><a href="#">Services </a></li>*/}
 											<li><a href="#">Registre <i className="icofont-rounded-down"></i></a>
 												<ul className="dropdown">
-													<li><a href="404.html">Registre Details</a></li>
+												<li><Link to="/signup">Registre Details</Link></li>
 												</ul>
 											</li>
 											<li><a href="#">Login <i className="icofont-rounded-down"></i></a>
 												<ul className="dropdown">
-													<li><a href="blog-single.html">Login Details</a></li>
+													<li><Link to="/login">Login Details</Link></li>
 												</ul>
 											</li>
 											<li><a href="contact.html">Contact Us</a></li>
