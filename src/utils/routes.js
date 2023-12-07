@@ -1,0 +1,15 @@
+export const ROUTES = {
+  LANDING: "/",
+  HOME: "/home",
+  DOSSIER_MEDICAL: "/home/dossier-medical",
+  INFO_USER: "/home/infos-personnelles",
+  RDV: "/home/rdv",
+  LOGIN: "/login",
+  SIGNUP: "/signup",
+};
+
+export const API_ROUTES = {
+  Login: "/auth/login",
+  Signup: "/auth/signup",
+  Logout: "/auth/logout",
+};
