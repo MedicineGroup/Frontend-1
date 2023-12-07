@@ -20,6 +20,7 @@ export function useAuthContext() {
     onLogout: context.onLogout,
     errors: context.errors,
     jwtToken: context.jwtToken,
+    checkingAuthState: context.checkingAuthState,
   };
 }
 
@@ -47,6 +48,7 @@ export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errors, setErrors] = useState();
   const [jwtToken, setJwtToken] = useState("");
+  const [checkingAuthState, setCheckingAuthState] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
     const userData = localStorage.getItem("userData");
@@ -55,6 +57,7 @@ export function AuthProvider({ children }) {
       setJwtToken(authToken);
       setIsLoggedIn(true);
     }
+    setCheckingAuthState(false);
   }, []);
   const mutationLogin = useMutation({
     mutationFn: loginMutation,
@@ -121,6 +124,7 @@ export function AuthProvider({ children }) {
     onLogout,
     errors,
     jwtToken,
+    checkingAuthState,
   };
   return (
     <>
