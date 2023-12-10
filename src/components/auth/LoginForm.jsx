@@ -28,8 +28,8 @@ const LoginForm = () => {
     resolver: yupResolver(schema),
     mode: "onTouched",
   });
-  const { isSubmitting, errors } = formState;
-  const { onLogin, errors: loginErrors } = useAuthContext();
+  const { errors } = formState;
+  const { onLogin, errors: loginErrors, loading } = useAuthContext();
   const onSubmit = async (data) => {
     await onLogin(data);
     reset();
@@ -38,10 +38,10 @@ const LoginForm = () => {
     <Card
       color="transparent"
       shadow={false}
-      className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      className=" font-primary mt-20 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
     >
-      <Typography variant="h4" color="blue-gray">
-        Se connecter
+      <Typography variant="h4" className=" text-primary text-center">
+        Login
       </Typography>
       {loginErrors && <Alert color="red">{loginErrors.loginErrors}</Alert>}
 
@@ -51,7 +51,7 @@ const LoginForm = () => {
       >
         <div className="mb-1 flex flex-col gap-6">
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Votre Email
+            Email
           </Typography>
           <Input
             size="lg"
@@ -67,7 +67,7 @@ const LoginForm = () => {
             <div className={classes["input-error"]}>{errors.email.message}</div>
           )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Mot de passe
+            Password
           </Typography>
           <Input
             type="password"
@@ -88,16 +88,19 @@ const LoginForm = () => {
         </div>
         <Button
           type="submit"
-          className="mt-6"
+          className="mt-6 bg-primary"
           fullWidth
-          disabled={isSubmitting}
+          disabled={loading}
         >
-          {isSubmitting ? <Spinner /> : "Se connecter"}
+          {loading ? <Spinner /> : "Login"}
         </Button>
         <Typography color="gray" className="mt-4 text-center font-normal">
-          Un nouveau utilisateur?{" "}
-          <Link to={ROUTES.SIGNUP} className="font-medium text-gray-900">
-            Creer un compte
+          Don&#39;t have an account?{" "}
+          <Link
+            to={ROUTES.SIGNUP}
+            className="font-semibold underline text-gray-900"
+          >
+            Sign up
           </Link>
         </Typography>
       </form>
