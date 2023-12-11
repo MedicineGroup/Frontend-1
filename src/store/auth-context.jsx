@@ -27,19 +27,19 @@ export function useAuthContext() {
 }
 
 const loginMutation = async (data) => {
-  return axios.post(`${import.meta.env.VITE_API_URL}${API_ROUTES.Login}`, data);
+  return axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8888'}${API_ROUTES.Login}`, data);
 };
 
 const signupMutation = (data) => {
   const { confirmPassword, ...signUpData } = data;
   return axios.post(
-    `${import.meta.env.VITE_API_URL}${API_ROUTES.Signup}`,
+    `${import.meta.env.VITE_API_URL || 'http://localhost:8888'}${API_ROUTES.Signup}`,
     signUpData
   );
 };
 
 const logoutMutation = (jwtToken) => {
-  return axios.get(`${import.meta.env.VITE_API_URL}${API_ROUTES.Logout}`, {
+  return axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8888'}${API_ROUTES.Logout}`, {
     headers: {
       Authorization: `Bearer ${jwtToken}`,
     },
@@ -74,7 +74,7 @@ export function AuthProvider({ children }) {
       setIsLoggedIn(true);
       setUserData(data.data.user);
       setLoading(false);
-      navigate(ROUTES.DOSSIER_MEDICAL);
+      navigate(ROUTES.RDV);
     },
     onError: (error) => {
       setErrors({

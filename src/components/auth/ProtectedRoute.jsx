@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../../store/auth-context";
 import { ROUTES } from "../../utils/routes";
-import HomePageLayout from "../layout/HomePageLayout";
+import HomePageLayout from "../layouts/HomePageLayout";
 import { useEffect } from "react";
 import { Spinner } from "@material-tailwind/react";
 
