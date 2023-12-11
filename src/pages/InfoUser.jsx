@@ -1,4 +1,4 @@
-import UserDataComponent from "../components/user-profile/UserDataComponent";
+import UserDataComponent from "../components/user/UserDataComponent";
 
 const InfoUser = () => {
   return (
