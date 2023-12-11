@@ -12,4 +12,7 @@ export const API_ROUTES = {
   Login: "/auth/login",
   Signup: "/auth/signup",
   Logout: "/auth/logout",
+  GetUserInfos: "/user/get-infos",
+  UpdateUserInfos: "/user/update-infos",
+  UpdateUserProfileImage: "/user/update-profile-image",
 };

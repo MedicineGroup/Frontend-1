@@ -32,8 +32,8 @@ const SignupForm = () => {
     resolver: yupResolver(schema),
     mode: "onTouched",
   });
-  const { onSignup, errors: signupErrors } = useAuthContext();
-  const { isSubmitting, errors } = formState;
+  const { loading, onSignup, errors: signupErrors } = useAuthContext();
+  const { errors } = formState;
   const onSubmit = async (data) => {
     await onSignup(data);
     reset();
@@ -42,10 +42,10 @@ const SignupForm = () => {
     <Card
       color="transparent"
       shadow={false}
-      className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      className=" mt-28 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-primary"
     >
-      <Typography variant="h4" color="blue-gray">
-        S&#39;enregistrer
+      <Typography variant="h4" className=" text-primary text-center">
+        Register
       </Typography>
       {signupErrors && <Alert color="red">{signupErrors.signupErrors}</Alert>}
       <form
@@ -54,7 +54,7 @@ const SignupForm = () => {
       >
         <div className="mb-1 flex flex-col gap-6">
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Votre prenom
+            Your First Name
           </Typography>
           <Input
             size="lg"
@@ -72,7 +72,7 @@ const SignupForm = () => {
             </div>
           )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Votre Nom
+            Your Last Name
           </Typography>
           <Input
             size="lg"
@@ -90,7 +90,7 @@ const SignupForm = () => {
             </div>
           )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Votre Email
+            Your email
           </Typography>
           <Input
             size="lg"
@@ -106,7 +106,7 @@ const SignupForm = () => {
             <div className={classes["input-error"]}>{errors.email.message}</div>
           )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Mot de Passe
+            Choose a password
           </Typography>
           <Input
             type="password"
@@ -127,16 +127,19 @@ const SignupForm = () => {
         </div>
         <Button
           type="submit"
-          className="mt-6"
+          className="mt-6 bg-primary"
           fullWidth
-          disabled={isSubmitting}
+          disabled={loading}
         >
-          {isSubmitting ? <Spinner /> : "Creer un compte"}
+          {loading ? <Spinner /> : "Sign up"}
         </Button>
         <Typography color="gray" className="mt-4 text-center font-normal">
-          Deja un utilisateur?{" "}
-          <Link to={ROUTES.LOGIN} className="font-medium text-gray-900">
-            Se connecter
+          Already a user?{" "}
+          <Link
+            to={ROUTES.LOGIN}
+            className="font-semibold text-gray-900 underline"
+          >
+            Login
           </Link>
         </Typography>
       </form>
