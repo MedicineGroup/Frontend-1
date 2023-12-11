@@ -1,36 +1,21 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Card, Typography } from "@material-tailwind/react";
- 
-const TABLE_HEAD = ["Name", "Job", "Employed", ""];
- 
-const TABLE_ROWS = [
-  {
-    name: "John Michael",
-    job: "Manager",
-    date: "23/04/18",
-  },
-  {
-    name: "Alexa Liras",
-    job: "Developer",
-    date: "23/04/18",
-  },
-  {
-    name: "Laurent Perrier",
-    job: "Executive",
-    date: "19/09/17",
-  },
-  {
-    name: "Michael Levi",
-    job: "Developer",
-    date: "24/12/08",
-  },
-  {
-    name: "Richard Gran",
-    job: "Manager",
-    date: "04/10/21",
-  },
-];
- 
+
+const TABLE_HEAD = ["Consultation Date", "Doctor", "Service", "State", ""];
+
 function DossierMedical() {
+  const [consultations, setConsultations] = useState([]);
+  const email=localStorage.getItem('userData').email;
+
+  useEffect(() => {
+    // Fetch data from the API using Axios
+    axios
+      .get(`http://localhost:8888/user/consultations?email=${email}`)
+      .then((response) => setConsultations(response.data))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   return (
     <Card className="h-full w-full overflow-scroll">
       <table className="w-full min-w-max table-auto text-left">
@@ -53,47 +38,31 @@ function DossierMedical() {
           </tr>
         </thead>
         <tbody>
-          {TABLE_ROWS.map(({ name, job, date }, index) => {
-            const isLast = index === TABLE_ROWS.length - 1;
-            const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
- 
+          {consultations.map(({ _id, date, doctor, service, state }) => {
             return (
-              <tr key={name}>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {name}
+              <tr key={_id}>
+                <td className="p-4 border-b border-blue-gray-50">
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {new Date(date).toLocaleDateString()}
                   </Typography>
                 </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {job}
+                <td className="p-4 border-b border-blue-gray-50">
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {doctor}
                   </Typography>
                 </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {date}
+                <td className="p-4 border-b border-blue-gray-50">
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {service}
                   </Typography>
                 </td>
-                <td className={classes}>
-                  <Typography
-                    as="a"
-                    href="#"
-                    variant="small"
-                    color="blue-gray"
-                    className="font-medium"
-                  >
+                <td className="p-4 border-b border-blue-gray-50">
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {state}
+                  </Typography>
+                </td>
+                <td className="p-4 border-b border-blue-gray-50">
+                  <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
                     Edit
                   </Typography>
                 </td>
@@ -105,4 +74,5 @@ function DossierMedical() {
     </Card>
   );
 }
+
 export default DossierMedical;
