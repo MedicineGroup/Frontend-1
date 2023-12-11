@@ -74,7 +74,7 @@ export function AuthProvider({ children }) {
       setIsLoggedIn(true);
       setUserData(data.data.user);
       setLoading(false);
-      navigate(ROUTES.DOSSIER_MEDICAL);
+      navigate(ROUTES.RDV);
     },
     onError: (error) => {
       setErrors({

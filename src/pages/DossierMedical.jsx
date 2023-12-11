@@ -6,12 +6,25 @@ const TABLE_HEAD = ["Consultation Date", "Doctor", "Service", "State", ""];
 
 function DossierMedical() {
   const [consultations, setConsultations] = useState([]);
-  const email=localStorage.getItem('userData').email;
+  const userDataString=localStorage.getItem('userData');
+  const userData = JSON.parse(userDataString);
+  // Now, userData is an object, and you can access the email property
+  const email = userData.email;
+  console.log('Email:', email);
 
   useEffect(() => {
+    // Récupérer le token du local storage
+  const token = localStorage.getItem("token");
+
+  // Configurer l'en-tête avec le token
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
     // Fetch data from the API using Axios
     axios
-      .get(`http://localhost:8888/user/consultations?email=${email}`)
+      .get(`http://localhost:8888/user/consultations?email=${email}`, config)
       .then((response) => setConsultations(response.data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
