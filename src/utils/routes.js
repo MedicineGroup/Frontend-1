@@ -16,4 +16,5 @@ export const API_ROUTES = {
   UpdateUserInfos: "/user/update-infos",
   UpdateUserProfileImage: "/user/update-profile-image",
   GetConsultations: "/user/consultations",
+  GetServices:"/service/getAllServices"
 };
