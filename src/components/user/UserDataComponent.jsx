@@ -64,7 +64,7 @@ const UserDataComponent = () => {
           />
           <img
             src="/assets/camera-icon.svg"
-            className={`${classes.icon} text-gray-400 h-7  w-7`}
+            className={`${classes.icon} text-white h-7  w-7`}
           />
         </div>
         <div className=" mt-6">
