@@ -1,92 +1,59 @@
-import React, { useState } from 'react';
 import { TERipple } from 'tw-elements-react';
-import { Spinner } from "@material-tailwind/react";
-import { useQuery } from "@tanstack/react-query";
-import { API_ROUTES } from "../../utils/routes.js";
-import { useAuthContext } from "../../store/auth-context.jsx";
-import axios from "axios";
-import DoctorCard from "./DoctorCard";
-import { Link } from 'react-router-dom';
-import { ROUTES } from "../../utils/routes.js";
+import {
+  DialogHeader, 
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
+import Modal from '../shared/Modal.jsx';
+import { XMarkIcon } from '@heroicons/react/24/solid';
+import { useState } from 'react';
+import DoctorsList from './DoctorsList.jsx';
 
-export default function ServiceCard() {
-    const { jwtToken } = useAuthContext();
-  const getAllServices = () => {
-    return axios.get(
-      `${import.meta.env.VITE_API_URL}${API_ROUTES.GetServices}`,
-      {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      }
-    );
-  };
- 
 
-  const { data, isError, isLoading } = useQuery({
-    queryKey: ["get-servicess"],
-    queryFn: getAllServices,
-  });
-  const [selectedService, setSelectedService] = useState(null);
-  const showDoctorsHandler = (serviceId) => {
-    setSelectedService(serviceId);
-  };
-
-  if (isLoading) {
-    return (
-      <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <Spinner className=" h-7 w-7" />
-      </div>
-    );
+export default function ServiceCard({ service }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const closeModal = () => {
+    setIsModalOpen(!isModalOpen);
   }
-
-  if (isError) {
-    return (
-      <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <p className=" text-red-700 font-semibold">
-          Something went wrong! Please refresh the page
-        </p>
-      </div>
-    );
-  }
-
-  if (data.data.services.length === 0) {
-    return (
-      <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <p className=" font-semibold">You have no previous services</p>
-      </div>
-    );
-  }
-   
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      {data.data.services.map((service) => (
-        <div key={service._id} className="block w-96 rounded-lg bg-white shadow-[0_2px_10px_-2px_rgba(0,0,0,0.07),0_8px_16px_-1px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
-            <img
-              className="rounded-t-lg w-full h-64 object-cover"
-              src={import.meta.resolve(`../../images/${service.nom}.jpeg`)}
-              alt={service.nom || "Service Image"}
+    <>
+     <Card className="mt-6 w-96">
+      <CardHeader color="blue-gray">
+        <img 
+          className="relative h-56 w-full"
+          src={import.meta.resolve(`../../images/${service.nom}.jpeg`)}
+          alt="card-image"
+        />
+      </CardHeader>
+      <CardBody>
+        <Typography variant="h5" color="blue-gray" className="mb-2">
+          {service.nom}
+        </Typography>
+        <Typography>
+          {service.detail}
+        </Typography>
+      </CardBody>
+      <CardFooter className="pt-0">
+        <Button onClick={closeModal}>Doctors</Button>
+      </CardFooter>
+    </Card>
+        <Modal
+          isOpen={isModalOpen}
+          handleClose={closeModal}
+        >
+          <DialogHeader className="flex flex-row justify-between">
+            <p>Doctors</p>
+            <XMarkIcon
+              onClick={closeModal}
+              className="h-6 w-6 cursor-pointer"
             />
-          <div className="p-4">
-            <h5 className="mb-2 text-lg font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-              {service.nom || "Service Name"}
-            </h5>
-            <p className="mb-2 text-sm text-neutral-600 dark:text-neutral-200">
-              {service.detail || "Service Description"}
-            </p>
-            <TERipple>
-              <Link
-                type="button"
-                onClick={() => showDoctorsHandler(service._id)}
-                className="inline-block rounded bg-primary px-4 py-1.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_2px_5px_-2px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_4px_5px_-2px_rgba(59,113,202,0.3),0_2px_9px_-1px_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_4px_5px_-2px_rgba(59,113,202,0.3),0_2px_9px_-1px_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_4px_5px_-2px_rgba(59,113,202,0.3),0_2px_9px_-1px_rgba(59,113,202,0.2)] dark:shadow-[0_2px_5px_-2px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_4px_5px_-2px_rgba(59,113,202,0.2),0_2px_9px_-1px_rgba(59,113,202,0.1)] dark:focus:shadow-[0_4px_5px_-2px_rgba(59,113,202,0.2),0_2px_9px_-1px_rgba(59,113,202,0.1)] dark:active:shadow-[0_4px_5px_-2px_rgba(59,113,202,0.2),0_2px_9px_-1px_rgba(59,113,202,0.1)]"
-              >
-                Show Doctors
-              </Link>
-            </TERipple>
-          </div>
-          {selectedService === service._id && <DoctorCard serviceId={service._id} />}
-        </div>
-      ))}
-    </div>
+          </DialogHeader>
+          <DoctorsList service={service.nom} />
+        </Modal>
+    </>
   );
 }

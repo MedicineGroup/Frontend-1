@@ -17,5 +17,5 @@ export const API_ROUTES = {
   UpdateUserProfileImage: "/user/update-profile-image",
   GetConsultations: "/user/consultations",
   GetServices:"/service/getAllServices",
-  GetDoctors:"/doctor/getAllDoctorsByServiceId?serviceId=657822d4ef21ce0985a08e17"
+  GetDoctors:"/doctor/getAllDoctorsByService"
 };

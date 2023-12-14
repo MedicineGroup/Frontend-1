@@ -1,8 +1,8 @@
 
-import ServiceCard from "../components/rdv/ServiceCard";
+import ServicesList from "../components/rdv/ServicesList";
 const Rdv = () => {
   return (
-   <ServiceCard/>
+   <ServicesList/>
   );
 };
 
