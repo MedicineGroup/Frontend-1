@@ -12,17 +12,17 @@ import { NavLink } from "react-router-dom";
 
 const navLinks = [
   {
-    name: "RDV",
+    name: "Appointments",
     path: ROUTES.RDV,
     icon: <PresentationChartBarIcon className="h-5 w-5" />,
   },
   {
-    name: "Dossier Medical",
+    name: "Consultations List",
     path: ROUTES.DOSSIER_MEDICAL,
     icon: <InboxIcon className="h-5 w-5" />,
   },
   {
-    name: "Infos Personnelles",
+    name: "Personal Infos",
     path: ROUTES.INFO_USER,
     icon: <UserCircleIcon className="h-5 w-5" />,
   },

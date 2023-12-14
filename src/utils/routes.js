@@ -1,9 +1,9 @@
 export const ROUTES = {
   LANDING: "/",
   HOME: "/home",
-  DOSSIER_MEDICAL: "/home/dossier-medical",
-  INFO_USER: "/home/infos-personnelles",
-  RDV: "/home/rdv",
+  DOSSIER_MEDICAL: "/home/consultations-list",
+  INFO_USER: "/home/personal-infos",
+  RDV: "/home/appointment",
   LOGIN: "/login",
   SIGNUP: "/signup",
 };
@@ -16,6 +16,6 @@ export const API_ROUTES = {
   UpdateUserInfos: "/user/update-infos",
   UpdateUserProfileImage: "/user/update-profile-image",
   GetConsultations: "/user/consultations",
-  GetServices:"/service/getAllServices",
-  GetDoctors:"/doctor/getAllDoctorsByService"
+  GetServices: "/service/getAllServices",
+  GetDoctors: "/doctor/getAllDoctorsByService",
 };
