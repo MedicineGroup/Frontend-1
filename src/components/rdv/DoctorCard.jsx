@@ -12,7 +12,7 @@ export default function DoctorCard({ doctor }) {
   return (
     <>
       <Card className="mt-6">
-        <CardHeader color="blue-gray">
+        <CardHeader color="blue-gray"> 
           <img
             className="relative h-56 w-full"
             src={doctor.image || "/assets/profile-placeholder.jpg"}
