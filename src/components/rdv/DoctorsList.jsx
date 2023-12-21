@@ -7,7 +7,7 @@ import { useAuthContext } from "../../store/auth-context.jsx";
 import axios from "axios";
 import DoctorCard from "./DoctorCard.jsx";
 
-const DoctorsList = ({ service }) => {
+const DoctorsList = ({ service, onSelectDoctor }) => {
   const { jwtToken } = useAuthContext();
   const getAllDoctorsByService = () => {
     return axios.get(
@@ -46,7 +46,11 @@ const DoctorsList = ({ service }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-scroll">
       {data.data.doctors.map((doctor) => (
-        <DoctorCard key={doctor._id} doctor={doctor} />
+        <DoctorCard
+          onSelectDoctor={onSelectDoctor}
+          key={doctor._id}
+          doctor={doctor}
+        />
       ))}
     </div>
   );

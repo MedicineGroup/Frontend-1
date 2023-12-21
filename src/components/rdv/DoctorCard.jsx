@@ -5,16 +5,20 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Button,
+  Radio,
 } from "@material-tailwind/react";
 
-export default function DoctorCard({ doctor }) {
+export default function DoctorCard({ doctor, onSelectDoctor }) {
+  const handleSelect = () => {
+    // Inform the parent component about the selected doctor
+    onSelectDoctor(doctor);
+  };
   return (
     <>
       <Card className="mt-6">
         <CardHeader color="blue-gray">
           <img
-            className="relative h-56 w-full"
+            className="relative"
             src={doctor.image || "/assets/profile-placeholder.jpg"}
             alt="card-image"
           />
@@ -25,8 +29,8 @@ export default function DoctorCard({ doctor }) {
           </Typography>
           <Typography>{doctor.detail}</Typography>
         </CardBody>
-        <CardFooter className="pt-0">
-          <Button>Button</Button>
+        <CardFooter className="pt-0 flex justify-center w-full">
+          <Radio name="doctors" color="blue" onClick={handleSelect} />
         </CardFooter>
       </Card>
     </>
