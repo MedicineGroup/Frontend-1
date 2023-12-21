@@ -16,7 +16,7 @@ export default function DoctorCard({ doctor, onSelectDoctor }) {
   return (
     <>
       <Card className="mt-6">
-        <CardHeader color="blue-gray">
+        <CardHeader color="blue-gray"> 
           <img
             className="relative"
             src={doctor.image || "/assets/profile-placeholder.jpg"}
