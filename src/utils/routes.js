@@ -2,6 +2,7 @@ export const ROUTES = {
   LANDING: "/",
   HOME: "/home",
   DOSSIER_MEDICAL: "/home/consultations-list",
+  CONSULATION_DETAIL:"/home/consultations-list/details",
   INFO_USER: "/home/personal-infos",
   RDV: "/home/appointment",
   LOGIN: "/login",
@@ -18,4 +19,5 @@ export const API_ROUTES = {
   GetConsultations: "/user/consultations",
   GetServices: "/service/getAllServices",
   GetDoctors: "/doctor/getAllDoctorsByService",
+  PostAnalyse:"/upload-files"
 };

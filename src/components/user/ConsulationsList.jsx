@@ -1,12 +1,14 @@
 import axios from "axios";
-import { Card, Spinner, Typography } from "@material-tailwind/react";
+import { Card, Spinner, Typography, DialogHeader} from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import { API_ROUTES } from "../../utils/routes";
 import { useAuthContext } from "../../store/auth-context";
+import ConsultationRow from "./ConsultationRow.jsx";
 
 const TABLE_HEAD = ["Consultation Date", "Doctor", "Service", "State", ""];
 
 const ConsulationsList = () => {
+  
   const { jwtToken } = useAuthContext();
   // Now, userData is an object, and you can access the email property
   const getConsultations = () => {
@@ -50,6 +52,8 @@ const ConsulationsList = () => {
     );
   }
   return (
+    <>
+    
     <Card className="h-full w-full overflow-scroll">
       <table className="w-full min-w-max table-auto text-left">
         <thead>
@@ -72,63 +76,17 @@ const ConsulationsList = () => {
         </thead>
         <tbody>
           {data.data.consultations.map(
-            ({ _id, date, doctor, service, state }) => {
+            (consultation) => {
               return (
-                <tr key={_id}>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {new Date(date).toLocaleDateString()}
-                    </Typography>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {doctor}
-                    </Typography>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {service}
-                    </Typography>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {state}
-                    </Typography>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      as="a"
-                      href="#"
-                      variant="small"
-                      color="blue-gray"
-                      className="font-medium"
-                    >
-                      Edit
-                    </Typography>
-                  </td>
-                </tr>
+                <ConsultationRow key={consultation._id} consultation={consultation}/>
               );
             }
           )}
         </tbody>
       </table>
     </Card>
+    
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
-
+import ConsultationDetail from "./components/user/ConsultationDetail";
 function App() {
   return (
     <Routes>
@@ -18,6 +18,7 @@ function App() {
         <Route path={ROUTES.DOSSIER_MEDICAL} element={<DossierMedical />} />
         <Route path={ROUTES.INFO_USER} element={<InfoUser />} />
         <Route path={ROUTES.RDV} element={<Rdv />} />
+        <Route path={ROUTES.CONSULATION_DETAIL} element={<ConsultationDetail/>}/>
       </Route>
     </Routes>
   );
