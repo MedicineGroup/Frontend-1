@@ -40,12 +40,12 @@ export default function ServiceCard({ service }) {
           </Button>
         </CardFooter>
       </Card>
-      <Modal size={"xl"} isOpen={isModalOpen} handleClose={closeModal}>
+      <Modal size={"lg"} isOpen={isModalOpen} handleClose={closeModal}>
         <DialogHeader className="flex flex-row justify-between">
           <p>Appointment</p>
           <XMarkIcon onClick={closeModal} className="h-6 w-6 cursor-pointer" />
         </DialogHeader>
-        <AppointmentPopup service={service.name} />
+        <AppointmentPopup service={service.name} onClose={closeModal} />
       </Modal>
     </>
   );

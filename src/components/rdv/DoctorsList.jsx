@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { Spinner } from "@material-tailwind/react";
+import { Spinner, Radio } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import { API_ROUTES } from "../../utils/routes.js";
 import { useAuthContext } from "../../store/auth-context.jsx";
@@ -44,13 +44,16 @@ const DoctorsList = ({ service, onSelectDoctor }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-scroll">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 px-2 gap-4">
       {data.data.doctors.map((doctor) => (
-        <DoctorCard
-          onSelectDoctor={onSelectDoctor}
-          key={doctor._id}
-          doctor={doctor}
-        />
+        <DoctorCard key={doctor._id} doctor={doctor}>
+          <Radio
+            className=" border-2 border-black"
+            name="doctors"
+            color="blue"
+            onClick={() => onSelectDoctor(doctor)}
+          />
+        </DoctorCard>
       ))}
     </div>
   );

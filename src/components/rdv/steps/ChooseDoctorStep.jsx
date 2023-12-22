@@ -16,7 +16,7 @@ const ChooseDoctorStep = ({ onNext, updateData, service }) => {
     // Check if a doctor is selected before proceeding
     if (selectedDoctor) {
       // Update data in the parent component
-      updateData({ selectedDoctor });
+      updateData({ selectedDoctor: selectedDoctor._id });
       // Move to the next step
       onNext();
     }
@@ -28,13 +28,15 @@ const ChooseDoctorStep = ({ onNext, updateData, service }) => {
         Step 1: Select Doctor
       </h2>
       <DoctorsList onSelectDoctor={handleSelectDoctor} service={service} />
-      <Button
-        className="bg-primary my-4"
-        disabled={disabled}
-        onClick={handleNext}
-      >
-        Next
-      </Button>
+      <div className="flex flex-row w-full justify-end px-2">
+        <Button
+          className="bg-primary my-4"
+          disabled={disabled}
+          onClick={handleNext}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 };
