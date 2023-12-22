@@ -11,7 +11,7 @@ import {
 import Modal from "../shared/Modal.jsx";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
-import DoctorsList from "./DoctorsList.jsx";
+import AppointmentPopup from "./AppointmentPopup.jsx";
 
 export default function ServiceCard({ service }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,12 +40,12 @@ export default function ServiceCard({ service }) {
           </Button>
         </CardFooter>
       </Card>
-      <Modal size={"xl"} isOpen={isModalOpen} handleClose={closeModal}>
+      <Modal size={"lg"} isOpen={isModalOpen} handleClose={closeModal}>
         <DialogHeader className="flex flex-row justify-between">
-          <p>Doctors</p>
+          <p>Appointment</p>
           <XMarkIcon onClick={closeModal} className="h-6 w-6 cursor-pointer" />
         </DialogHeader>
-        <DoctorsList service={service.name} />
+        <AppointmentPopup service={service.name} onClose={closeModal} />
       </Modal>
     </>
   );

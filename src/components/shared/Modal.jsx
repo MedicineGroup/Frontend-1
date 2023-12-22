@@ -7,7 +7,12 @@ const Modal = ({ isOpen, handleClose, size, children }) => {
     return null;
   }
   return ReactDOM.createPortal(
-    <Dialog size={size || "md"} open={isOpen} handler={handleClose}>
+    <Dialog
+      className=" overflow-y-scroll my-3"
+      size={size || "md"}
+      open={isOpen}
+      handler={handleClose}
+    >
       {children}
     </Dialog>,
     document.getElementById("portal")
