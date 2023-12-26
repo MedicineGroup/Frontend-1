@@ -33,9 +33,9 @@ const ChooseTimeStep = ({
     return axios.get(
       `${import.meta.env.VITE_API_URL}${
         API_ROUTES.GetFullyBookedTimes
-      }?doctorId=${appointmentData.selectedDoctor}&date=${
+      }?doctorId=${appointmentData.selectedDoctor}&date=${new Date(
         appointmentData.selectedDate
-      }`,
+      ).toISOString()}`,
       {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
@@ -72,6 +72,8 @@ const ChooseTimeStep = ({
       </div>
     );
   }
+
+  console.log(data.data.bookedTimes);
 
   const bookedTimes = new Set(data.data.bookedTimes);
   return (
