@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Card, Spinner, Typography, DialogHeader} from "@material-tailwind/react";
+import { Card, Spinner, Typography } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import { API_ROUTES } from "../../utils/routes";
 import { useAuthContext } from "../../store/auth-context";
@@ -8,7 +8,6 @@ import ConsultationRow from "./ConsultationRow.jsx";
 const TABLE_HEAD = ["Consultation Date", "Doctor", "Service", "State", ""];
 
 const ConsulationsList = () => {
-  
   const { jwtToken } = useAuthContext();
   // Now, userData is an object, and you can access the email property
   const getConsultations = () => {
@@ -53,39 +52,38 @@ const ConsulationsList = () => {
   }
   return (
     <>
-    
-    <Card className="h-full w-full overflow-scroll">
-      <table className="w-full min-w-max table-auto text-left">
-        <thead>
-          <tr>
-            {TABLE_HEAD.map((head) => (
-              <th
-                key={head}
-                className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-              >
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal leading-none opacity-70"
+      <Card className="h-full w-full overflow-scroll">
+        <table className="w-full min-w-max table-auto text-left">
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head) => (
+                <th
+                  key={head}
+                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
                 >
-                  {head}
-                </Typography>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.data.consultations.map(
-            (consultation) => {
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal leading-none opacity-70"
+                  >
+                    {head}
+                  </Typography>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.data.consultations.map((consultation) => {
               return (
-                <ConsultationRow key={consultation._id} consultation={consultation}/>
+                <ConsultationRow
+                  key={consultation._id}
+                  consultation={consultation}
+                />
               );
-            }
-          )}
-        </tbody>
-      </table>
-    </Card>
-    
+            })}
+          </tbody>
+        </table>
+      </Card>
     </>
   );
 };

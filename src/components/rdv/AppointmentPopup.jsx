@@ -22,7 +22,6 @@ const AppointmentPopup = ({ onClose, service }) => {
       `${import.meta.env.VITE_API_URL}${API_ROUTES.SaveConsultation}`,
       {
         date: appointmentData.selectedDate,
-        state: "Waiting Approval",
         startTime: appointmentData.selectedTime,
         duration: 30,
         doctor: appointmentData.selectedDoctor,
