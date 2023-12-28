@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { Button, Radio, Spinner } from "@material-tailwind/react";
 import { useState } from "react";
@@ -73,9 +74,10 @@ const ChooseTimeStep = ({
     );
   }
 
-  console.log(data.data.bookedTimes);
 
-  const bookedTimes = new Set(data.data.bookedTimes);
+  const bookedTimes = new Set(
+    Object.entries(data.data.bookedTimes).map(([key, value]) => value)
+  );
   return (
     <div className="h-[80vh] flex flex-col justify-between items-center">
       <h2 className="mb-3 text-center font-semibold text-lg">
