@@ -30,8 +30,8 @@ const navLinks = [
 
 export function SideBar() {
   return (
-    <div className={classes.total}>
-      <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+    <div className={`${classes.total} h-full`}>
+      <Card className="h-full w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
         <List>
           {navLinks.map((link) => {
             return (

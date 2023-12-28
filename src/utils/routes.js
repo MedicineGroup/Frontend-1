@@ -23,4 +23,5 @@ export const API_ROUTES = {
   GetFullyBookedDates: "/user/fully-booked-dates",
   GetFullyBookedTimes: "/user/booked-times",
   SaveConsultation: "/user/save-appointment",
+  GetUserDoctors: "/user/doctors",
 };
