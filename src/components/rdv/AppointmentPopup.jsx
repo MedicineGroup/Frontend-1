@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChooseDoctorStep from "./steps/ChooseDoctorStep";
 import ChooseDateStep from "./steps/ChooseDateStep";
 import ChooseTimeStep from "./steps/ChooseTimeStep";
@@ -8,9 +8,10 @@ import { useAuthContext } from "../../store/auth-context";
 import { API_ROUTES } from "../../utils/routes";
 import { useMutation } from "@tanstack/react-query";
 
-const AppointmentPopup = ({ onClose, service }) => {
+const AppointmentPopup = ({ onClose, service, doctor }) => {
   const [step, setStep] = useState(1);
   const { jwtToken } = useAuthContext();
+  const [error, setError] = useState();
   const [appointmentData, setAppointmentData] = useState({
     selectedDoctor: {},
     selectedDate: null,
@@ -34,6 +35,17 @@ const AppointmentPopup = ({ onClose, service }) => {
     );
   };
 
+  useEffect(() => {
+    if (doctor) {
+      appointmentData.selectedDoctor = doctor;
+      setAppointmentData(appointmentData);
+    }
+  }, [doctor, appointmentData]);
+
+  useEffect(() => {
+    if (doctor) setStep(2);
+  }, [doctor]);
+
   const saveConsultationMutation = useMutation({
     mutationKey: ["save-consultation"],
     mutationFn: saveConsultation,
@@ -43,6 +55,9 @@ const AppointmentPopup = ({ onClose, service }) => {
     },
     onError: (error) => {
       console.log(error);
+      setError({
+        message: error.response.data.message || "Something went wrong",
+      });
     },
   });
 
@@ -55,6 +70,7 @@ const AppointmentPopup = ({ onClose, service }) => {
   };
 
   const handleSubmit = async () => {
+    setError(null);
     await saveConsultationMutation.mutateAsync();
   };
 
@@ -64,7 +80,7 @@ const AppointmentPopup = ({ onClose, service }) => {
 
   return (
     <div>
-      {step === 1 && (
+      {step === 1 && service && (
         <ChooseDoctorStep
           service={service}
           onNext={handleNext}
@@ -86,6 +102,7 @@ const AppointmentPopup = ({ onClose, service }) => {
           appointmentData={appointmentData}
           updateData={updateData}
           loading={saveConsultationMutation.isPending}
+          error={error}
         />
       )}
     </div>

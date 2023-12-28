@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Button, Radio, Spinner } from "@material-tailwind/react";
+import { Alert, Button, Radio, Spinner } from "@material-tailwind/react";
 import { useState } from "react";
 import { useAuthContext } from "../../../store/auth-context";
 import axios from "axios";
@@ -13,6 +13,7 @@ const ChooseTimeStep = ({
   onSubmit,
   loading,
   appointmentData,
+  error,
 }) => {
   const { jwtToken } = useAuthContext();
   const [selectedTime, setSelectedTime] = useState(null);
@@ -50,7 +51,12 @@ const ChooseTimeStep = ({
     onSubmit();
   };
 
-  const { data, isError, isLoading, error } = useQuery({
+  const {
+    data,
+    isError,
+    isLoading,
+    error: fetchError,
+  } = useQuery({
     queryKey: ["get-booked-times"],
     queryFn: getBookedTimes,
   });
@@ -64,7 +70,7 @@ const ChooseTimeStep = ({
   }
 
   if (isError) {
-    console.log(error);
+    console.log(fetchError);
     return (
       <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <p className=" text-red-700 font-semibold">
@@ -74,7 +80,6 @@ const ChooseTimeStep = ({
     );
   }
 
-
   const bookedTimes = new Set(
     Object.entries(data.data.bookedTimes).map(([key, value]) => value)
   );
@@ -83,6 +88,11 @@ const ChooseTimeStep = ({
       <h2 className="mb-3 text-center font-semibold text-lg">
         Step 3: Select a Time
       </h2>
+      {error && (
+        <Alert color="red" className=" w-3/4">
+          {error.message}
+        </Alert>
+      )}
       <div className=" grid grid-cols-4 gap-3">
         {listOfTimes.map((time) => {
           return (
