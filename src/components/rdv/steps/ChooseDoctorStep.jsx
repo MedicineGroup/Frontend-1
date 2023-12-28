@@ -17,6 +17,7 @@ const ChooseDoctorStep = ({ onNext, updateData, service }) => {
     if (selectedDoctor) {
       // Update data in the parent component
       updateData({ selectedDoctor: selectedDoctor._id });
+      console.log("selected doctor : choose doctor step", selectedDoctor._id);
       // Move to the next step
       onNext();
     }

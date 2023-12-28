@@ -7,6 +7,7 @@ import {
   CardBody,
   CardFooter,
   Button,
+  Radio,
 } from "@material-tailwind/react";
 import { useLocation } from 'react-router-dom';
 function ConsultationDetail() {
@@ -19,13 +20,18 @@ function ConsultationDetail() {
     const [title, setTitle]=useState('');
     const [allImage, setAllImage] = useState(null);
     const [pdfFile, setPdfFile] = useState(null);
+    const [selectedType, setSelectedType] = useState("");
 
+  const handleTypeChange = (newType) => {
+    setSelectedType(newType);
+  };
     useEffect(() => {
       getPdf();
     }, []);
+    console.log("consultation.patient",consultation.patient)
     const getPdf = async () => {
-      const result = await axios.get("http://localhost:8888/get-files");
-      console.log(result.data.data);
+      const result = await axios.get(`http://localhost:8888/get-files?id=${consultation.patient._id}`);
+      console.log("get-files :",result.data.data);
       setAllImage(result.data.data);
     };
 
@@ -34,7 +40,9 @@ function ConsultationDetail() {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("file", file);
-    console.log(title, file);
+    formData.append("type", selectedType);
+
+    console.log(title, file, selectedType);
 
     const result = await axios.post(
       "http://localhost:8888/upload-files" ,//`${import.meta.env.VITE_API_URL}${API_ROUTES.PostAnalyse}`
@@ -46,7 +54,7 @@ function ConsultationDetail() {
         },
       }
     );
-    console.log(result);
+    //console.log(result);
     if (result.data.status == "ok") {
       alert("Uploaded Successfully!!!");
       getPdf();
@@ -76,6 +84,20 @@ function ConsultationDetail() {
                 <form className="formStyle">
                   <h4>Please upload PDF for analyses:</h4>
                   <br />
+                      <div className="flex gap-10">
+                      <Radio
+                name="type"
+                label="Analyses"
+                checked={selectedType === 'Analyses'}
+                onChange={() => handleTypeChange('Analyses')}
+              />
+              <Radio
+                name="type"
+                label="Radiologie"
+                checked={selectedType === 'Radiologie'}
+                onChange={() => handleTypeChange('Radiologie')}
+              />
+                      </div>
                   <input
                     type="text"
                     className="form-control"
@@ -109,14 +131,14 @@ function ConsultationDetail() {
       <br/>
       <br/>
     <div className="uploaded">
-        <h4>Uploaded PDF:</h4>
         <div className="output-div">
           {allImage == null
             ? ""
             : allImage.map((data, index) => {
+
                 return (
                   <div  key={index} className="inner-div">
-                    <h6>Title: {data.title}</h6>
+                    <h6>{data.type}: {data.title}</h6>
                     <button
                       className="btn btn-primary"
                       onClick={() => showPdf(data.pdf)}
