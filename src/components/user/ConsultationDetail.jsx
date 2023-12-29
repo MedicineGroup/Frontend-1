@@ -129,8 +129,70 @@ function ConsultationDetail() {
       </Card>
       <br/>
       <br/>
+
+      
+      <div className="uploaded">
+        <div className="output-div">
+          {console.log(consultation)}
+          {consultation?.prescription && 
+
+                 (
+                  <div  key={consultation._id} className="inner-div">
+                    <h6> Doctor prescription: </h6>
+                    <button
+                      className="btn btn-primary"
+                    >
+                     <a href={consultation.prescription}>Show Pdf</a> 
+                    </button>
+                    
+                  </div>
+                )
+          }
+        </div>
+      </div>
       <br/>
+      <div className="uploaded">
+        <div className="output-div">
+          {consultation.analysis?.prescription && 
+            
+
+                 (
+                  <div  key={consultation._id} className="inner-div">
+                    <h6> Doctor analysis prescription: </h6>
+                    <button
+                      className="btn btn-primary"
+                    >
+                     <a href={consultation.analysis?.prescription}>Show analysis prescription</a> 
+                    </button>
+                    
+                  </div>
+                )
+          }
+        </div>
+      </div>
+      <br/>
+      <div className="uploaded">
+        <div className="output-div">
+          {consultation.radiologies?.prescription && 
+            
+
+                 (
+                  <div  key={consultation._id} className="inner-div">
+                    <h6>Doctor rediology prescription: </h6>
+                    <button
+                      className="btn btn-primary"
+                    >
+                     <a href={consultation.radiologies?.prescription}>Show radiologies prescription</a> 
+                    </button>
+                    
+                  </div>
+                )
+          }
+        </div>
+      </div>
+      
     <div className="uploaded">
+      <h4>Uploaded files : </h4>
         <div className="output-div">
           {allImage == null
             ? ""
